@@ -1,18 +1,18 @@
 version: '3.1'
 services:
-    percona:
-        container_name: percona
+    mysql-server:
+        container_name: mysql
         ports:
             - "13306:3306"
+        command: mysqld --general_log=1 --log_output='TABLE'
         environment:
             MYSQL_ROOT_PASSWORD: 12345
             MYSQL_DATABASE: wordpress
             MYSQL_USER: wordpress_user
             MYSQL_PASSWORD: secret
-        image: percona
-        # command: mysqld --general_log=1 --log_output='TABLE'
-        # volumes:
-        #     - ./data:/docker-entrypoint-initdb.d
+        volumes:
+            - ./dump:/docker-entrypoint-initdb.d
+        image: mysql/mysql-serve
     wordpress:
         image: wordpress:latest
         container_name: wordpress
