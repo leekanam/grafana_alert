@@ -13,7 +13,7 @@ services:
             MYSQL_PASSWORD: secret
         volumes:
             - ./dump:/docker-entrypoint-initdb.d
-        image: mysql
+        image: mysql/mysql-server
     # grafana used for graphing mysql data
     grafana:
         container_name: grafana
