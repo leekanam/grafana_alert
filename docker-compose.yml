@@ -1,8 +1,8 @@
 version: '3.2'
 
 services:
-    mysql-server:
-        container_name: mysql
+    percona:
+        container_name: percona
         ports:
             - "13306:3306"
         command: mysqld --general_log=1 --log_output='TABLE'
@@ -13,7 +13,7 @@ services:
             MYSQL_PASSWORD: secret
         volumes:
             - ./dump:/docker-entrypoint-initdb.d
-        image: mysql/mysql-server
+        image: percona
     wordpress:
         image: wordpress:latest
         container_name: wordpress
@@ -24,7 +24,7 @@ services:
             WORDPRESS_DB_USER: wordpress_user
             WORDPRESS_DB_PASSWORD: secret
         depends_on:
-            - mysql-server
+            - percona
     # grafana used for graphing mysql data
     grafana:
         container_name: grafana
